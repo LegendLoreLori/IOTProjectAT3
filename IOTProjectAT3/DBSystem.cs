@@ -4,6 +4,10 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using MySql.Data.MySqlClient;
+
+
 
 namespace IOTProjectAT3
 {
@@ -25,10 +29,33 @@ namespace IOTProjectAT3
 
         }
 
-        //Select from all tables 
-        public void SelectTable()
+        //Return a list of tables to be displayed and interacted with in the list box 
+        public List<string> DisplayTables()
         {
-
+            List<string> tables = new List<string>();
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                string query = "SHOW TABLES";
+                try
+                {
+                    connection.Open();
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read()) 
+                            { 
+                                tables.Add(reader.GetString(0));
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex) 
+                { 
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            return tables;
         }
 
         //Populate list box automatically

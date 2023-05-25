@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace IOTProjectAT3
 {
     /// <summary>
@@ -20,11 +21,16 @@ namespace IOTProjectAT3
     /// </summary>
     public partial class MainWindow : Window
     {
+        DBSystem dataBaseSystem = new DBSystem();
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void SelectTableButton_Click(object sender, RoutedEventArgs e)
+        {
+            IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
+        }
     }
 }

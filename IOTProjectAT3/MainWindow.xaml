@@ -44,8 +44,7 @@
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
             Text="" 
-            FontSize="20"
-            MaxLength="8" />
+            FontSize="20" />
 
 
         <Button 
@@ -54,7 +53,7 @@
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="2"
-            Margin="8" />
+            Margin="8" Click="SelectTableButton_Click" />
         <Button 
             x:Name="JoinTableButton"
             Content="Join" 

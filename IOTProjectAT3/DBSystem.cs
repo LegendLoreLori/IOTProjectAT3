@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using MySql.Data.MySqlClient;
-
-
+using Org.BouncyCastle.Crypto.Parameters;
 
 namespace IOTProjectAT3
 {
@@ -39,15 +38,11 @@ namespace IOTProjectAT3
                 try
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using MySqlCommand command = new MySqlCommand(query, connection);
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read()) 
-                            { 
-                                tables.Add(reader.GetString(0));
-                            }
-                        }
+                        tables.Add(reader.GetString(0));
                     }
                 }
                 catch (Exception ex) 
@@ -58,8 +53,8 @@ namespace IOTProjectAT3
             return tables;
         }
 
-        //Populate list box automatically
-        public void FillList()
+        //Return the records of a selected table
+        public List<string> GetRecords(string tableName)
         {
         }
 

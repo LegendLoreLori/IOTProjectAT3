@@ -28,7 +28,7 @@ namespace IOTProjectAT3
             InitializeComponent();
         }
 
-        private void SelectTableButton_Click(object sender, RoutedEventArgs e)
+        private void ShowTablesButton_Click(object sender, RoutedEventArgs e)
         {
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }

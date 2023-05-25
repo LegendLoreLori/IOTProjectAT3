@@ -48,12 +48,12 @@
 
 
         <Button 
-            x:Name="SelectTableButton"
-            Content="Select Table" 
+            x:Name="ShowTablesButton"
+            Content="Show Tables" 
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="2"
-            Margin="8" Click="SelectTableButton_Click" />
+            Margin="8" Click="ShowTablesButton_Click" />
         <Button 
             x:Name="JoinTableButton"
             Content="Join" 

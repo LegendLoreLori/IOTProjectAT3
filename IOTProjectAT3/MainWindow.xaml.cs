@@ -30,7 +30,14 @@ namespace IOTProjectAT3
 
         private void ShowTablesButton_Click(object sender, RoutedEventArgs e)
         {
+            IOTListBox.ItemsSource = null;
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
+        }
+
+        private void IOTListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IOTListBox.SelectedItem == null) return;
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
         }
     }
 }

@@ -91,7 +91,7 @@
             Background="LightGray"
             Margin="8"
             Padding="8" 
-            FontFamily="Cascadia Code"/>
+            FontFamily="Cascadia Code" SelectionChanged="IOTListBox_SelectionChanged"/>
 
     </Grid>
 </Window>

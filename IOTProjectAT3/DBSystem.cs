@@ -54,24 +54,30 @@ namespace IOTProjectAT3
         }
 
         //Return the records of a selected table
-        //TODO: finalise implementation and build formatted strings from record
         public List<string> GetRecords(string tableName)
         {
-            List<string> records = new List<string>();
+            if (!DisplayTables().Contains(tableName)) return new List<string>() {"Invalid Table Name"};
 
+            List<string> records = new List<string>();
             using(MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                string query = "SELECT * FROM @tableName";
+                string query = $"SELECT * FROM `{tableName}`";
                 using(MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@tableName", tableName);
                     try
                     {
                         connection.Open();
                         using MySqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-                            records.Add();
+                            StringBuilder recordBuilder = new StringBuilder();
+                            //dynamically builds a string to the correct size
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                recordBuilder.Append(reader[i]);
+                                recordBuilder.Append("   ");
+                            }
+                            records.Add(recordBuilder.ToString().Trim());
                         }
                     }
                     catch(Exception ex)

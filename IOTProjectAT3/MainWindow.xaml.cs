@@ -38,7 +38,7 @@ namespace IOTProjectAT3
         //populate list box with all records inside a table
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (IOTListBox.SelectedItem == null) return;
+            if (IOTListBox.SelectedItem == null || IOTListBox.SelectedItem.ToString() == "") return;
             //validates if selected item is a table name
             if (!dataBaseSystem.DisplayTables().Contains(IOTListBox.SelectedItem.ToString())) return;
 

@@ -163,6 +163,5 @@ namespace IOTProjectAT3
             string record = recordBuilder.ToString().Trim();
             return record;
         }
-
     }
 }

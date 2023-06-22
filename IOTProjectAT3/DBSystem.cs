@@ -20,13 +20,12 @@ namespace IOTProjectAT3
         public const string DbUser = "root";
         public const string DbName = "lmm_ictprg402";
         public const int DbPort = 3306;
-        public const string DbPassword = "password";
+        public const string DbPassword = "";
         public static readonly string DbConnectionString = $"server={DbServer}; user={DbUser}; database={DbName}; port={DbPort}; password={DbPassword}";
 
         //TODO: figure out if I need to do anything with a constructor
         public DBSystem() 
         {
-
         }
 
         //Return a list of tables to be displayed and interacted with in the list box 
@@ -94,8 +93,9 @@ namespace IOTProjectAT3
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
+                connection.Open();
                 // Retrieve the table schema
-                DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, tableName, null });
+                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
                 List<string> fieldNames = new List<string>();
                 foreach (DataRow row in schemaTable.Rows)
                 {

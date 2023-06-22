@@ -28,16 +28,18 @@ namespace IOTProjectAT3
             InitializeComponent();
         }
 
+        //display the tables inside the database
         private void ShowTablesButton_Click(object sender, RoutedEventArgs e)
         {
             IOTListBox.ItemsSource = null;
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }
 
+        //populate list box with all records inside a table
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (IOTListBox.SelectedItem == null) return;
-            IOTListBox.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
         }
 
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)

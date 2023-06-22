@@ -84,12 +84,13 @@ namespace IOTProjectAT3
         }
 
         //Perform like query on table 
-        public void SearchTable(string tableName, string searchText)
+        public List<string> SearchTable(string tableName, string searchText)
         {
             List<string> records = new List<string>();
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                string query = $"SELECT * FROM `{tableName}` WHERE {tableName[1]} LIKE %{searchText}%";
+                //this is a bad implementation, assumes the name column will always be in index 1
+                string query = $"SELECT * FROM `{tableName}` WHERE `{GetSchema(tableName)[1]}` LIKE '%{searchText}%';";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 try
                 {
@@ -105,6 +106,7 @@ namespace IOTProjectAT3
                     MessageBox.Show(ex.Message);
                 }
             }
+            return records;
         }
 
         //Perform update query on record

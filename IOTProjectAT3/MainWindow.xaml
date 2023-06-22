@@ -35,16 +35,27 @@
             Margin="8" 
             FontSize="20"/>-->
         <TextBox 
-            x:Name="SearchTextbox"
+            x:Name="SearchTextBox"
             Grid.Column="2" 
             Grid.Row="1" 
             MinHeight="32"
-            Margin="8" 
+            Margin="165,8,8,8" 
             TextWrapping="Wrap"
             VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Center"
+            HorizontalContentAlignment="Right"
             Text="" 
             FontSize="20" />
+        <TextBlock
+            x:Name="TableNameBlock"
+            Text="Table Name:"
+            Grid.Column="2" 
+            HorizontalAlignment="Left"
+            Margin="60,0,0,0" 
+            Grid.Row="1" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Center"/>
+
+
 
         <Button 
             x:Name="SearchRecordButton"

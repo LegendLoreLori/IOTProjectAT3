@@ -34,7 +34,7 @@ namespace IOTProjectAT3
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }
 
-        private void IOTListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (IOTListBox.SelectedItem == null) return;
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,14 +71,7 @@ namespace IOTProjectAT3
                         using MySqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-                            StringBuilder recordBuilder = new StringBuilder();
-                            //dynamically builds a string to the correct size
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                recordBuilder.Append(reader[i]);
-                                recordBuilder.Append("   ");
-                            }
-                            records.Add(recordBuilder.ToString().Trim());
+                            records.Add(BuildList(reader));
                         }
                     }
                     catch(Exception ex)
@@ -87,23 +81,6 @@ namespace IOTProjectAT3
                 }
             }
             return records;
-        }
-
-        public List<string> GetSchema(string tableName)
-        {
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
-            {
-                connection.Open();
-                // Retrieve the table schema
-                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
-                List<string> fieldNames = new List<string>();
-                foreach (DataRow row in schemaTable.Rows)
-                {
-                    string columnName = (string)row["COLUMN_NAME"];
-                    fieldNames.Add(columnName);
-                }
-                return fieldNames;
-            }
         }
 
         //Perform like query on table 
@@ -120,14 +97,7 @@ namespace IOTProjectAT3
                     using MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        StringBuilder recordBuilder = new StringBuilder();
-                        //dynamically builds a string to the correct size
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            recordBuilder.Append(reader[i]);
-                            recordBuilder.Append("   ");
-                        }
-                        records.Add(recordBuilder.ToString().Trim());
+                        records.Add(BuildList(reader));
                     }
                 }
                 catch (Exception ex)
@@ -159,6 +129,37 @@ namespace IOTProjectAT3
         public void DeleteRecord() 
         {
 
+        }
+
+        //return a list of the field names inside a table
+        private List<string> GetSchema(string tableName)
+        {
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                connection.Open();
+                // Retrieve the table schema
+                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
+                List<string> fieldNames = new List<string>();
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    string columnName = (string)row["COLUMN_NAME"];
+                    fieldNames.Add(columnName);
+                }
+                return fieldNames;
+            }
+        }
+
+        private string BuildList(MySqlDataReader reader)
+        {
+            StringBuilder recordBuilder = new StringBuilder();
+            //dynamically builds a string to the correct size
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                recordBuilder.Append(reader[i]);
+                recordBuilder.Append("   ");
+            }
+            string record = recordBuilder.ToString().Trim();
+            return record;
         }
 
     }

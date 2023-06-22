@@ -37,7 +37,7 @@ namespace IOTProjectAT3
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (IOTListBox.SelectedItem == null) return;
-            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
+            IOTListBox.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
         }
 
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)

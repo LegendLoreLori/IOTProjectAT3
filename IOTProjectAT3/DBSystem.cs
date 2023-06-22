@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -89,12 +90,53 @@ namespace IOTProjectAT3
             return records;
         }
 
-        //Perform like query on table 
-        public void SearchList()
+        public List<string> GetSchema(string tableName)
         {
-
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                // Retrieve the table schema
+                DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, tableName, null });
+                List<string> fieldNames = new List<string>();
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    string columnName = (string)row["COLUMN_NAME"];
+                    fieldNames.Add(columnName);
+                }
+                return fieldNames;
+            }
         }
-        
+
+        //Perform like query on table 
+        public void SearchTable(string tableName, string searchText)
+        {
+            List<string> records = new List<string>();
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                string query = $"SELECT * FROM `{tableName}` WHERE {tableName[1]} LIKE %{searchText}%";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                try
+                {
+                    connection.Open();
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        StringBuilder recordBuilder = new StringBuilder();
+                        //dynamically builds a string to the correct size
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            recordBuilder.Append(reader[i]);
+                            recordBuilder.Append("   ");
+                        }
+                        records.Add(recordBuilder.ToString().Trim());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
         //Perform update query on record
         public void EditRecord()
         {

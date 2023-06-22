@@ -51,6 +51,7 @@ namespace IOTProjectAT3
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
             if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
+
             IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
             SearchTextBox.Text = "";
         }

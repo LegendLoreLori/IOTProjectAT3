@@ -25,7 +25,7 @@
             <RowDefinition Height="16"/>
         </Grid.RowDefinitions>
         
-        <Label 
+        <!--<Label 
             x:Name="SearchLabel"
             Content="Search:" 
             HorizontalAlignment="Center"
@@ -33,7 +33,7 @@
             Grid.Column="1" 
             Grid.Row="1"
             Margin="8" 
-            FontSize="20"/>
+            FontSize="20"/>-->
         <TextBox 
             x:Name="SearchTextbox"
             Grid.Column="2" 
@@ -46,7 +46,13 @@
             Text="" 
             FontSize="20" />
 
-
+        <Button 
+            x:Name="SearchRecordButton"
+            Content="Search" 
+            FontSize="20"
+            Grid.Column="1" 
+            Grid.Row="1"
+            Margin="8" Click="SearchRecordButton_Click" />
         <Button 
             x:Name="ShowTablesButton"
             Content="Show Tables" 

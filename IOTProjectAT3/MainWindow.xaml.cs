@@ -39,5 +39,10 @@ namespace IOTProjectAT3
             if (IOTListBox.SelectedItem == null) return;
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
         }
+
+        private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchTextbox.Text == null || SearchTextbox.Text == "") return;
+        }
     }
 }

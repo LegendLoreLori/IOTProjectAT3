@@ -39,15 +39,19 @@ namespace IOTProjectAT3
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (IOTListBox.SelectedItem == null) return;
+            //validates if selected item is a table name
+            if (!dataBaseSystem.DisplayTables().Contains(IOTListBox.SelectedItem.ToString())) return;
+
             TableNameBlock.Text = IOTListBox.SelectedItem.ToString();
+            FieldNamesCombo.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
         }
 
         //searched records with like query and populates list box with result
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SearchTextBox.Text == null || SearchTextBox.Text == "") return;
-            IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, SearchTextBox.Text);
+            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
+            IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
             SearchTextBox.Text = "";
         }
     }

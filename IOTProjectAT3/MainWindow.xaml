@@ -24,7 +24,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="16"/>
         </Grid.RowDefinitions>
-        
+
         <!--<Label 
             x:Name="SearchLabel"
             Content="Search:" 
@@ -50,10 +50,10 @@
             Text="Table Name:"
             Grid.Column="2" 
             HorizontalAlignment="Left"
-            Margin="60,0,0,0" 
+            Margin="38,8,0,0" 
             Grid.Row="1" 
             TextWrapping="Wrap" 
-            VerticalAlignment="Center"/>
+            VerticalAlignment="Top"/>
 
 
 
@@ -109,6 +109,7 @@
             Margin="8"
             Padding="8" 
             FontFamily="Cascadia Code" MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
+        <ComboBox x:Name="FieldNamesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

@@ -84,13 +84,13 @@ namespace IOTProjectAT3
         }
 
         //Perform like query on table 
-        public List<string> SearchTable(string tableName, string searchText)
+        public List<string> SearchTable(string tableName, string fieldName, string searchText)
         {
             List<string> records = new List<string>();
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
                 //this is a bad implementation, assumes the name column will always be in index 1
-                string query = $"SELECT * FROM `{tableName}` WHERE `{GetSchema(tableName)[1]}` LIKE '%{searchText}%';";
+                string query = $"SELECT {fieldName} FROM `{tableName}` WHERE `{GetSchema(tableName)[2]}` LIKE '%{searchText}%';";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 try
                 {
@@ -134,14 +134,14 @@ namespace IOTProjectAT3
         }
 
         //return a list of the field names inside a table
-        private List<string> GetSchema(string tableName)
+        public List<string> GetSchema(string tableName)
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
                 connection.Open();
                 // Retrieve the table schema
                 DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
-                List<string> fieldNames = new List<string>();
+                List<string> fieldNames = new List<string>() { "*" };
                 foreach (DataRow row in schemaTable.Rows)
                 {
                     string columnName = (string)row["COLUMN_NAME"];

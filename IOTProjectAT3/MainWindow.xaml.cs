@@ -58,12 +58,20 @@ namespace IOTProjectAT3
             SearchTextBox.Text = "";
         }
 
+        //
         private void BranchRecordsButton_Click(object sender, RoutedEventArgs e)
         {
             if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = all;
             if (TableNameBlock.Text == null || TableNameBlock.Text != "employees") return;
-            //TODO: implement getrecords function
+            
+            List<string> records = new List<string>();
 
+            if (BranchesCombo.SelectedItem == all) records = dataBaseSystem.GetRecords(all, TableNameBlock.Text);
+            else 
+            {
+                records = dataBaseSystem.GetRecords(all, TableNameBlock.Text, $"branch_id = {BranchesCombo.SelectedItem}");
+            }
+            IOTListBox.ItemsSource = records;
         }
 
         private void BranchesCombo_Initialized(object sender, EventArgs e)

@@ -137,7 +137,7 @@ namespace IOTProjectAT3
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                List<string> branches = new List<string>();
+                List<string> branches = new List<string>() { "*" };
 
                 string query = $"SELECT branch_id FROM `employees` GROUP BY branch_id;";
                 using (MySqlCommand command = new MySqlCommand(query, connection))

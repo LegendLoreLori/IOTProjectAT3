@@ -133,6 +133,7 @@ namespace IOTProjectAT3
 
         }
 
+        //Return the unique branches in employees table
         public List<string> GetBranches()
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
@@ -153,7 +154,7 @@ namespace IOTProjectAT3
             }
         }
 
-        //return a list of the field names inside a table
+        //Return a list of the field names inside a table
         public List<string> GetSchema(string tableName)
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
@@ -174,7 +175,7 @@ namespace IOTProjectAT3
         private string BuildList(MySqlDataReader reader)
         {
             StringBuilder recordBuilder = new StringBuilder();
-            //dynamically builds a string to the correct size
+            //Dynamically builds a string to the correct size
             for (int i = 0; i < reader.FieldCount; i++)
             {
                 recordBuilder.Append(reader[i]);

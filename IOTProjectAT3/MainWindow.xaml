@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IOTProjectAT3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="920">
     <!--TODO: make this pretty-->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -44,7 +44,7 @@
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Right"
             Text="" 
-            FontSize="20" />
+            FontSize="20" Height="50" />
         <TextBlock
             x:Name="TableNameBlock"
             Text="Table Name:"
@@ -54,8 +54,17 @@
             Grid.Row="1" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top"/>
+        <ListBox 
+            x:Name="IOTListBox"
+            Grid.Column="2" 
+            Grid.Row="2"
+            Grid.RowSpan="5"
+            Background="LightGray"
+            Margin="8" Padding="8"
+            FontFamily="Cascadia Code"
+            MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
 
-        
+
         <Button 
             x:Name="SearchRecordButton"
             Content="Search" 
@@ -98,26 +107,64 @@
             Grid.Column="1" 
             Grid.Row="6"
             Margin="8" />
-        
-        <!--dynamic buttons-->
+        <ComboBox 
+            x:Name="FieldNamesCombo" 
+            Grid.Column="2" 
+            HorizontalAlignment="Left" 
+            Margin="10,36,0,0" 
+            Grid.Row="1" 
+            VerticalAlignment="Top"
+            Width="112"/>
+
+
+        <!--dynamic employee controls-->
         <Button 
             x:Name="SalaryRecordsButton"
             Content="Salary"
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="130,8,8,0" FontSize="14"/>
+            VerticalAlignment="Top" Margin="130,4,8,0" FontSize="14"/>
         <Button 
             x:Name="BranchRecordsButton"
             Content="Branch"
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="178,8,8,0" FontSize="14" Click="BranchRecordsButton_Click"/>
-        
-        <ListBox x:Name="IOTListBox" Grid.Column="2" Grid.Row="2" Grid.RowSpan="5" Background="LightGray" Margin="8" Padding="8" FontFamily="Cascadia Code" MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
-        <ComboBox x:Name="FieldNamesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112"/>
-        <ComboBox x:Name="BranchesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="232,8,8,0" Grid.Row="1" VerticalAlignment="Top" Height="23" Initialized="BranchesCombo_Initialized"/>
+            VerticalAlignment="Top" Margin="178,4,8,0" FontSize="14" Click="BranchRecordsButton_Click"/>
+        <ComboBox 
+            x:Name="BranchesCombo"
+            Grid.Column="2"
+            HorizontalAlignment="Left" 
+            Margin="232,4,8,0"
+            Grid.Row="1" 
+            VerticalAlignment="Top"
+            Height="23"
+            Initialized="BranchesCombo_Initialized"/>
+        <TextBox 
+            x:Name="MinSalaryTextBox"
+            Grid.Column="2" 
+            Grid.Row="1" 
+            MinHeight="32" 
+            TextWrapping="Wrap"
+            MinWidth="60"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            Text="" 
+            FontSize="12" Margin="130,0,0,4" Height="16"/>
+        <TextBox 
+            x:Name="MaxSalaryTextBox"
+            Grid.Column="2" 
+            Grid.Row="1" 
+            MinHeight="32"
+            TextWrapping="Wrap"
+            MinWidth="60"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left"
+            Text="" 
+            FontSize="12" Margin="199,27,0,4" />
+
+
 
     </Grid>
 </Window>

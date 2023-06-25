@@ -55,14 +55,14 @@ namespace IOTProjectAT3
         }
 
         //Return the records of a selected table
-        public List<string> GetRecords(string tableName)
+        public List<string> GetRecords(string fieldName, string tableName, string condition="1=1")
         {
             if (!DisplayTables().Contains(tableName)) return new List<string>() {"Invalid Table Name"};
 
             List<string> records = new List<string>();
             using(MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                string query = $"SELECT * FROM `{tableName}`";
+                string query = $"SELECT {fieldName} FROM `{tableName}` WHERE {condition}";
                 using(MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     try

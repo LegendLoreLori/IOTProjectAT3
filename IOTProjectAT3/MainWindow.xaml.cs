@@ -22,6 +22,7 @@ namespace IOTProjectAT3
     public partial class MainWindow : Window
     {
         DBSystem dataBaseSystem = new DBSystem();
+        string all = "*";
 
         public MainWindow()
         {
@@ -44,14 +45,14 @@ namespace IOTProjectAT3
 
             TableNameBlock.Text = IOTListBox.SelectedItem.ToString();
             FieldNamesCombo.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
-            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(all, IOTListBox.SelectedItem.ToString());
         }
 
         //searched records with like query and populates list box with result
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
             if (TableNameBlock.Text == "Table Name:" ||  TableNameBlock.Text == null) return;
-            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
+            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = all;
 
             IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
             SearchTextBox.Text = "";
@@ -59,17 +60,10 @@ namespace IOTProjectAT3
 
         private void BranchRecordsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = "*";
+            if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = all;
             if (TableNameBlock.Text == null || TableNameBlock.Text != "employees") return;
+            //TODO: implement getrecords function
 
-            List<string> employeesByBranch = new List<string>();
-
-            foreach (string record in dataBaseSystem.GetRecords(TableNameBlock.Text))
-            {
-                employeesByBranch.Add($"{record} meme");
-            }
-
-            IOTListBox.ItemsSource = employeesByBranch;
         }
 
         private void BranchesCombo_Initialized(object sender, EventArgs e)

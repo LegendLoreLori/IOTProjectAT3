@@ -39,7 +39,7 @@
             Grid.Column="2" 
             Grid.Row="1" 
             MinHeight="32"
-            Margin="236,8,8,8" 
+            Margin="268,8,8,8" 
             TextWrapping="Wrap"
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Right"
@@ -113,10 +113,11 @@
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="172,8,8,0" FontSize="14"/>
+            VerticalAlignment="Top" Margin="178,8,8,0" FontSize="14" Click="BranchRecordButton_Click"/>
         
         <ListBox x:Name="IOTListBox" Grid.Column="2" Grid.Row="2" Grid.RowSpan="5" Background="LightGray" Margin="8" Padding="8" FontFamily="Cascadia Code" MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
-        <ComboBox x:Name="FieldNamesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118"/>
+        <ComboBox x:Name="FieldNamesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112"/>
+        <ComboBox x:Name="BranchesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="232,8,8,0" Grid.Row="1" VerticalAlignment="Top" Height="23" Initialized="BranchesCombo_Initialized"/>
 
     </Grid>
 </Window>

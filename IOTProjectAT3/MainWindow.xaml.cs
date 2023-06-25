@@ -50,10 +50,24 @@ namespace IOTProjectAT3
         //searched records with like query and populates list box with result
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
+            if (TableNameBlock.Text == "Table Name:" ||  TableNameBlock.Text == null) return;
             if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
 
             IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
             SearchTextBox.Text = "";
+        }
+
+        private void BranchRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BranchesCombo_Initialized(object sender, EventArgs e)
+        {
+            //if (TableNameBlock.Text == "Table Name:" || TableNameBlock.Text == null) return;
+
+
+            BranchesCombo.ItemsSource = dataBaseSystem.GetBranches();
         }
     }
 }

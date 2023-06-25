@@ -133,6 +133,26 @@ namespace IOTProjectAT3
 
         }
 
+        public List<string> GetBranches()
+        {
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                List<string> branches = new List<string>();
+
+                string query = $"SELECT branch_id FROM `employees` GROUP BY branch_id;";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) 
+                    {
+                        branches.Add(BuildList(reader));
+                    }
+                }
+                return branches;
+            }
+        }
+
         //return a list of the field names inside a table
         public List<string> GetSchema(string tableName)
         {

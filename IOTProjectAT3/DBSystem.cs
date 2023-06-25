@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,12 @@ namespace IOTProjectAT3
         public const string DbUser = "root";
         public const string DbName = "lmm_ictprg402";
         public const int DbPort = 3306;
-        public const string DbPassword = "password";
+        public const string DbPassword = "";
         public static readonly string DbConnectionString = $"server={DbServer}; user={DbUser}; database={DbName}; port={DbPort}; password={DbPassword}";
 
         //TODO: figure out if I need to do anything with a constructor
         public DBSystem() 
         {
-
         }
 
         //Return a list of tables to be displayed and interacted with in the list box 
@@ -71,14 +71,7 @@ namespace IOTProjectAT3
                         using MySqlDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-                            StringBuilder recordBuilder = new StringBuilder();
-                            //dynamically builds a string to the correct size
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                recordBuilder.Append(reader[i]);
-                                recordBuilder.Append("   ");
-                            }
-                            records.Add(recordBuilder.ToString().Trim());
+                            records.Add(BuildList(reader));
                         }
                     }
                     catch(Exception ex)
@@ -90,29 +83,14 @@ namespace IOTProjectAT3
             return records;
         }
 
-        public List<string> GetSchema(string tableName)
-        {
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
-            {
-                // Retrieve the table schema
-                DataTable schemaTable = connection.GetSchema("Columns", new[] { null, null, tableName, null });
-                List<string> fieldNames = new List<string>();
-                foreach (DataRow row in schemaTable.Rows)
-                {
-                    string columnName = (string)row["COLUMN_NAME"];
-                    fieldNames.Add(columnName);
-                }
-                return fieldNames;
-            }
-        }
-
         //Perform like query on table 
-        public void SearchTable(string tableName, string searchText)
+        public List<string> SearchTable(string tableName, string fieldName, string searchText)
         {
             List<string> records = new List<string>();
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                string query = $"SELECT * FROM `{tableName}` WHERE {tableName[1]} LIKE %{searchText}%";
+                //this is a bad implementation, assumes the name column will always be in index 1
+                string query = $"SELECT {fieldName} FROM `{tableName}` WHERE `{GetSchema(tableName)[2]}` LIKE '%{searchText}%';";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 try
                 {
@@ -120,14 +98,7 @@ namespace IOTProjectAT3
                     using MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        StringBuilder recordBuilder = new StringBuilder();
-                        //dynamically builds a string to the correct size
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            recordBuilder.Append(reader[i]);
-                            recordBuilder.Append("   ");
-                        }
-                        records.Add(recordBuilder.ToString().Trim());
+                        records.Add(BuildList(reader));
                     }
                 }
                 catch (Exception ex)
@@ -135,6 +106,7 @@ namespace IOTProjectAT3
                     MessageBox.Show(ex.Message);
                 }
             }
+            return records;
         }
 
         //Perform update query on record
@@ -161,5 +133,35 @@ namespace IOTProjectAT3
 
         }
 
+        //return a list of the field names inside a table
+        public List<string> GetSchema(string tableName)
+        {
+            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            {
+                connection.Open();
+                // Retrieve the table schema
+                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
+                List<string> fieldNames = new List<string>() { "*" };
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    string columnName = (string)row["COLUMN_NAME"];
+                    fieldNames.Add(columnName);
+                }
+                return fieldNames;
+            }
+        }
+
+        private string BuildList(MySqlDataReader reader)
+        {
+            StringBuilder recordBuilder = new StringBuilder();
+            //dynamically builds a string to the correct size
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                recordBuilder.Append(reader[i]);
+                recordBuilder.Append("   ");
+            }
+            string record = recordBuilder.ToString().Trim();
+            return record;
+        }
     }
 }

@@ -28,21 +28,32 @@ namespace IOTProjectAT3
             InitializeComponent();
         }
 
+        //display the tables inside the database
         private void ShowTablesButton_Click(object sender, RoutedEventArgs e)
         {
             IOTListBox.ItemsSource = null;
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }
 
+        //populate list box with all records inside a table
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (IOTListBox.SelectedItem == null) return;
-            IOTListBox.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
+            if (IOTListBox.SelectedItem == null || IOTListBox.SelectedItem.ToString() == "") return;
+            //validates if selected item is a table name
+            if (!dataBaseSystem.DisplayTables().Contains(IOTListBox.SelectedItem.ToString())) return;
+
+            TableNameBlock.Text = IOTListBox.SelectedItem.ToString();
+            FieldNamesCombo.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(IOTListBox.SelectedItem.ToString());
         }
 
+        //searched records with like query and populates list box with result
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SearchTextbox.Text == null || SearchTextbox.Text == "") return;
+            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
+
+            IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
+            SearchTextBox.Text = "";
         }
     }
 }

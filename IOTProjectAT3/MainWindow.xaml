@@ -24,7 +24,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="16"/>
         </Grid.RowDefinitions>
-        
+
         <!--<Label 
             x:Name="SearchLabel"
             Content="Search:" 
@@ -35,17 +35,27 @@
             Margin="8" 
             FontSize="20"/>-->
         <TextBox 
-            x:Name="SearchTextbox"
+            x:Name="SearchTextBox"
             Grid.Column="2" 
             Grid.Row="1" 
             MinHeight="32"
-            Margin="8" 
+            Margin="236,8,8,8" 
             TextWrapping="Wrap"
             VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Center"
+            HorizontalContentAlignment="Right"
             Text="" 
             FontSize="20" />
+        <TextBlock
+            x:Name="TableNameBlock"
+            Text="Table Name:"
+            Grid.Column="2" 
+            HorizontalAlignment="Left"
+            Margin="10,8,0,0" 
+            Grid.Row="1" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"/>
 
+        
         <Button 
             x:Name="SearchRecordButton"
             Content="Search" 
@@ -88,16 +98,25 @@
             Grid.Column="1" 
             Grid.Row="6"
             Margin="8" />
-
-        <ListBox 
-            x:Name="IOTListBox"
+        
+        <!--dynamic buttons-->
+        <Button 
+            x:Name="SalaryRecordButton"
+            Content="Salary"
             Grid.Column="2" 
-            Grid.Row="2"
-            Grid.RowSpan="5" 
-            Background="LightGray"
-            Margin="8"
-            Padding="8" 
-            FontFamily="Cascadia Code" MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" Margin="130,8,8,0" FontSize="14"/>
+        <Button 
+            x:Name="BranchRecordButton"
+            Content="Branch"
+            Grid.Column="2" 
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" Margin="172,8,8,0" FontSize="14"/>
+        
+        <ListBox x:Name="IOTListBox" Grid.Column="2" Grid.Row="2" Grid.RowSpan="5" Background="LightGray" Margin="8" Padding="8" FontFamily="Cascadia Code" MouseDoubleClick="IOTListBox_MouseDoubleClick"/>
+        <ComboBox x:Name="FieldNamesCombo" Grid.Column="2" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="1" VerticalAlignment="Top" Width="118"/>
 
     </Grid>
 </Window>

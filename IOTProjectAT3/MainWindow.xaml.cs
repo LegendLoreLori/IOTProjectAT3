@@ -64,7 +64,7 @@ namespace IOTProjectAT3
 
             List<string> employeesByBranch = new List<string>();
 
-            foreach (string record in IOTListBox.Items)
+            foreach (string record in dataBaseSystem.GetRecords(TableNameBlock.Text))
             {
                 employeesByBranch.Add($"{record} meme");
             }

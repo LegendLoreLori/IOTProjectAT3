@@ -22,7 +22,6 @@ namespace IOTProjectAT3
     public partial class MainWindow : Window
     {
         DBSystem dataBaseSystem = new DBSystem();
-        string all = "*";
 
         public MainWindow()
         {
@@ -32,7 +31,7 @@ namespace IOTProjectAT3
         //display the tables inside the database
         private void ShowTablesButton_Click(object sender, RoutedEventArgs e)
         {
-            IOTListBox.ItemsSource = null;
+            TableNameBlock.Text = "Table Name:";
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }
 
@@ -45,32 +44,28 @@ namespace IOTProjectAT3
 
             TableNameBlock.Text = IOTListBox.SelectedItem.ToString();
             FieldNamesCombo.ItemsSource = dataBaseSystem.GetSchema(IOTListBox.SelectedItem.ToString());
-            IOTListBox.ItemsSource = dataBaseSystem.GetRecords(all, IOTListBox.SelectedItem.ToString());
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", IOTListBox.SelectedItem.ToString());
         }
 
         //searched records with like query and populates list box with result
         private void SearchRecordButton_Click(object sender, RoutedEventArgs e)
         {
             if (TableNameBlock.Text == "Table Name:" ||  TableNameBlock.Text == null) return;
-            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = all;
+            if (FieldNamesCombo.Text == null || FieldNamesCombo.Text == "") FieldNamesCombo.Text = "*";
 
             IOTListBox.ItemsSource = dataBaseSystem.SearchTable(TableNameBlock.Text, FieldNamesCombo.Text, SearchTextBox.Text);
             SearchTextBox.Text = "";
         }
 
-        //
+        //populates listbox with employees filtered by branch
         private void BranchRecordsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = all;
+            if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = "*";
             if (TableNameBlock.Text == null || TableNameBlock.Text != "employees") return;
             
             List<string> records = new List<string>();
-
-            if (BranchesCombo.SelectedItem == all) records = dataBaseSystem.GetRecords(all, TableNameBlock.Text);
-            else 
-            {
-                records = dataBaseSystem.GetRecords(all, TableNameBlock.Text, $"branch_id = {BranchesCombo.SelectedItem}");
-            }
+            if (BranchesCombo.SelectedItem == "*") records = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
+            else records = dataBaseSystem.GetRecords("*", TableNameBlock.Text, $"branch_id = {BranchesCombo.SelectedItem}");
             IOTListBox.ItemsSource = records;
         }
 

@@ -124,7 +124,7 @@
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="130,8,8,0" FontSize="14"/>
+            VerticalAlignment="Top" Margin="130,8,8,0" FontSize="14" Click="SalaryRecordsButton_Click"/>
         <Button 
             x:Name="BranchRecordsButton"
             Content="Branch"

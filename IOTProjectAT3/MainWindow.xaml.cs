@@ -69,9 +69,20 @@ namespace IOTProjectAT3
             IOTListBox.ItemsSource = records;
         }
 
+        //populates branch combobox with branch numbers, man it's so over engineered
         private void BranchesCombo_Initialized(object sender, EventArgs e)
         {
             BranchesCombo.ItemsSource = dataBaseSystem.GetBranches();
+        }
+
+        //populates list with employees whose salary are higher than a threshold
+        private void SalaryRecordsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TableNameBlock.Text == null || TableNameBlock.Text != "employees") return;
+            if (SalaryTextBox.Text == null || SalaryTextBox.Text == "") return;
+            if (!int.TryParse(SalaryTextBox.Text, out int value)) return;
+
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text, $"gross_salary > {SalaryTextBox.Text}");
         }
     }
 }

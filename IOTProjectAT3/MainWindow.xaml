@@ -39,18 +39,18 @@
             Grid.Column="2" 
             Grid.Row="1" 
             MinHeight="32"
-            Margin="268,8,8,8" 
+            Margin="0,8,8,0" 
             TextWrapping="Wrap"
-            VerticalContentAlignment="Center"
-            HorizontalContentAlignment="Right"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
             Text="" 
-            FontSize="20" Height="50" />
+            FontSize="20" Width="288" Height="52" />
         <TextBlock
             x:Name="TableNameBlock"
             Text="Table Name:"
             Grid.Column="2" 
             HorizontalAlignment="Left"
-            Margin="10,8,0,0" 
+            Margin="8,8,0,0" 
             Grid.Row="1" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top"/>
@@ -111,9 +111,9 @@
             x:Name="FieldNamesCombo" 
             Grid.Column="2" 
             HorizontalAlignment="Left" 
-            Margin="10,36,0,0" 
+            Margin="8,0,0,8" 
             Grid.Row="1" 
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Width="112"/>
 
 
@@ -124,47 +124,32 @@
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="130,4,8,0" FontSize="14"/>
+            VerticalAlignment="Top" Margin="130,8,8,0" FontSize="14"/>
         <Button 
             x:Name="BranchRecordsButton"
             Content="Branch"
             Grid.Column="2" 
             Grid.Row="1"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Margin="178,4,8,0" FontSize="14" Click="BranchRecordsButton_Click"/>
+            VerticalAlignment="Top" Margin="178,8,8,0" FontSize="14" Click="BranchRecordsButton_Click"/>
         <ComboBox 
             x:Name="BranchesCombo"
             Grid.Column="2"
             HorizontalAlignment="Left" 
-            Margin="232,4,8,0"
+            Margin="232,8,8,0"
             Grid.Row="1" 
             VerticalAlignment="Top"
             Height="23"
             Initialized="BranchesCombo_Initialized"/>
         <TextBox 
-            x:Name="MinSalaryTextBox"
+            x:Name="SalaryTextBox"
             Grid.Column="2" 
             Grid.Row="1" 
-            MinHeight="32" 
-            TextWrapping="Wrap"
-            MinWidth="60"
+            Height="22" 
+            Width="130"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Left"
             Text="" 
-            FontSize="12" Margin="130,0,0,4" Height="16"/>
-        <TextBox 
-            x:Name="MaxSalaryTextBox"
-            Grid.Column="2" 
-            Grid.Row="1" 
-            MinHeight="32"
-            TextWrapping="Wrap"
-            MinWidth="60"
-            VerticalAlignment="Bottom"
-            HorizontalAlignment="Left"
-            Text="" 
-            FontSize="12" Margin="199,27,0,4" />
-
-
-
+            FontSize="12" Margin="130,0,0,8" />
     </Grid>
 </Window>

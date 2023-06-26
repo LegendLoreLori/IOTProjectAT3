@@ -1,0 +1,54 @@
+﻿<Window x:Class="IOTProjectAT3.EmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IOTProjectAT3"
+        mc:Ignorable="d"
+        Title="InsertWindow" Height="450" Width="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="ID" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <Label Content="GIVEN NAME" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" Margin="0, 8, 0, 8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <Label Content="FAMILY NAME" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <Label Content="DOB" Grid.Column="1" Grid.Row="4" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="GENDER" Grid.Column="1" Grid.Row="5" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="SALARY" Grid.Column="1" Grid.Row="6" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="SUPERVISOR ID" Grid.Column="1" Grid.Row="7" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="BRANCH ID" Grid.Column="1" Grid.Row="8" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+
+        <TextBox x:Name="IdText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1"/>
+        <TextBox x:Name="GivenNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="8"/>
+        <TextBox x:Name="FamilyNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="DoBText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="GenderText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="SalaryText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="SupervisorIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="7" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="BranchIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="8" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+
+        <Button x:Name="InsertButton" Content="INSERT" Grid.Column="2" Margin="8" Grid.Row="9" Click="InsertButton_Click"/>
+        <Button x:Name="ClearButton" Content="CLEAR" Grid.Column="3"  Margin="8" Grid.Row="9" Click="ClearButton_Click" />
+
+    </Grid>
+</Window>

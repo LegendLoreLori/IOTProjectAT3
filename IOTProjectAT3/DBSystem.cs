@@ -157,9 +157,21 @@ namespace IOTProjectAT3
         }
 
         //Delete currently selected record
-        public void DeleteRecord() 
+        public void DeleteRecord(string idData) 
         {
-
+            using MySqlConnection connection = new(DbConnectionString);
+            string query = $"DELETE FROM `employees` WHERE `id`='{idData}';";
+            using MySqlCommand command = new(query, connection);
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                MessageBox.Show("Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //Return the unique branches in employees table

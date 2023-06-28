@@ -106,7 +106,7 @@
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="6"
-            Margin="8" />
+            Margin="8" Click="DeleteRecordButton_Click" />
         <ComboBox 
             x:Name="FieldNamesCombo" 
             Grid.Column="2" 

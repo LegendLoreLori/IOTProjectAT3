@@ -90,6 +90,8 @@ namespace IOTProjectAT3
         //calls dbsystem to perform an insert query with data provided by employeewindow
         private void InsertRecordButton_Click(object sender, RoutedEventArgs e)
         {
+            if (TableNameBlock.Text != "employees") return;
+
             EmployeeWindow insertWindow = new(dataBaseSystem, null);
             insertWindow.ShowDialog();
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
@@ -98,13 +100,30 @@ namespace IOTProjectAT3
         //calls dbsystem to perform an update query with data provided by employeewindow
         private void EditRecordButton_Click(object sender, RoutedEventArgs e)
         {
-            if (TableNameBlock.Text != "employees" || IOTListBox.SelectedItem == null || (string)IOTListBox.SelectedItem == "") {
+            if (TableNameBlock.Text != "employees" || IOTListBox.SelectedItem == null || (string)IOTListBox.SelectedItem == "")
+            {
                 MessageBox.Show("no item");
                 return;
             }
-            List<string> employeeData = IOTListBox.SelectedItem.ToString().Split(new string[] { "   " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> employeeData = IOTListBox.SelectedItem.ToString().Split(new string[] { "   " }, StringSplitOptions.RemoveEmptyEntries).ToList(); //creates a list of strings
             EmployeeWindow editWindow = new(dataBaseSystem, employeeData);
             editWindow.ShowDialog();
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
+        }
+
+        //calls dbsystem to delete employee record
+        private void DeleteRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TableNameBlock.Text != "employees" || IOTListBox.SelectedItem == null || (string)IOTListBox.SelectedItem == "")
+            {
+                MessageBox.Show("no item");
+                return;
+            }
+
+            string employeeID = IOTListBox.SelectedItem.ToString().Substring(0, 3);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.No) return;
+            dataBaseSystem.DeleteRecord(employeeID);
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
         }
     }

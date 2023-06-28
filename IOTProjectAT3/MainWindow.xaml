@@ -92,7 +92,7 @@
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="4"
-            Margin="8" />
+            Margin="8" Click="EditRecordButton_Click" />
         <Button 
             x:Name="InsertRecordButton"
             Content="Insert" 

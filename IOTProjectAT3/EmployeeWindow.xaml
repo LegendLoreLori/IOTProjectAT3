@@ -40,7 +40,7 @@
         <TextBox x:Name="IdText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3" />
         <TextBox x:Name="GivenNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
         <TextBox x:Name="FamilyNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
-        <TextBox x:Name="DoBText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
+        <TextBox x:Name="DoBText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="10" />
         <TextBox x:Name="GenderText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="1"/>
         <TextBox x:Name="SalaryText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
         <TextBox x:Name="SupervisorIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="7" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>

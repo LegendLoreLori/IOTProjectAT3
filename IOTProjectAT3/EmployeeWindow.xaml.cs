@@ -20,9 +20,20 @@ namespace IOTProjectAT3
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        public EmployeeWindow()
+        public EmployeeWindow(List<string>? data)
         {
             InitializeComponent();
+            if (data != null)
+            {
+                IdText.Text = data[0];
+                GivenNameText.Text = data[1];
+                FamilyNameText.Text = data[2];
+                DoBText.Text = data[3].Substring(0, 9);
+                GenderText.Text = data[4];
+                SalaryText.Text = data[5];
+                SupervisorIDText.Text = data[6];
+                BranchIDText.Text = data[7];
+            }
         }
 
         private void InsertButton_Click(object sender, RoutedEventArgs e)

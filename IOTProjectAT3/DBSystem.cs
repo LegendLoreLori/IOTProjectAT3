@@ -114,15 +114,15 @@ namespace IOTProjectAT3
         {
 
         }
-        
-        //Perform Join query on table
-        public void JoinTable()
+
+        //Insert new record into table
+        public void InsertRecord()
         {
 
         }
 
-        //Insert new record into table
-        public void InsertRecord()
+        //Perform Join query on table
+        public void JoinTable()
         {
 
         }

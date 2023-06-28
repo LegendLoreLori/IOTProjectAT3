@@ -63,21 +63,19 @@ namespace IOTProjectAT3
             using(MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
                 string query = $"SELECT {fieldName} FROM `{tableName}` WHERE {condition}";
-                using(MySqlCommand command = new MySqlCommand(query, connection))
+                using MySqlCommand command = new MySqlCommand(query, connection);
+                try
                 {
-                    try
+                    connection.Open();
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        connection.Open();
-                        using MySqlDataReader reader = command.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            records.Add(BuildList(reader));
-                        }
+                        records.Add(BuildList(reader));
                     }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
             return records;
@@ -91,7 +89,7 @@ namespace IOTProjectAT3
             {
                 //this is a bad implementation, assumes the name column will always be in index 1
                 string query = $"SELECT {fieldName} FROM `{tableName}` WHERE `{GetSchema(tableName)[2]}` LIKE '%{searchText}%';";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                using MySqlCommand command = new MySqlCommand(query, connection);
                 try
                 {
                     connection.Open();
@@ -118,23 +116,19 @@ namespace IOTProjectAT3
         //Insert new record into table
         public void InsertRecord(List<string> inputData)
         {
-            using (MySqlConnection connection = new MySqlConnection(DBSystem.DbConnectionString))
+            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
+            string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
+                $"('{inputData[0]}','{inputData[1]}','{inputData[2]}','{inputData[3]}','{inputData[4]}','{inputData[5]}','{inputData[6]}','{inputData[7]}');";
+            using MySqlCommand command = new MySqlCommand(query, connection);
+            try
             {
-                string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
-                    $"('{inputData[0]}','{inputData[1]}','{inputData[2]}','{inputData[3]}','{inputData[4]}','{inputData[5]}','{inputData[6]}','{inputData[7]}');";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Success");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
+                MessageBox.Show("Success");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -153,47 +147,43 @@ namespace IOTProjectAT3
         //Return the unique branches in employees table
         public List<string> GetBranches()
         {
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
-            {
-                List<string> branches = new List<string>() { "*" };
+            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
+            List<string> branches = new List<string>() { "*" };
 
-                string query = $"SELECT branch_id FROM `employees` GROUP BY branch_id;";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+            string query = $"SELECT branch_id FROM `employees` GROUP BY branch_id;";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                connection.Open();
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read()) 
-                    {
-                        branches.Add(BuildList(reader));
-                    }
+                    branches.Add(BuildList(reader));
                 }
-                return branches;
             }
+            return branches;
         }
 
         //Return a list of the field names inside a table
         public List<string> GetSchema(string tableName)
         {
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
+            List<string> fieldNames = new List<string>() { "*" };
+            try
             {
-                List<string> fieldNames = new List<string>() { "*" };
-                try
+                connection.Open();
+                // Retrieve the table schema
+                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
+                foreach (DataRow row in schemaTable.Rows)
                 {
-                    connection.Open();
-                    // Retrieve the table schema
-                    DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
-                    foreach (DataRow row in schemaTable.Rows)
-                    {
-                        string columnName = (string)row["COLUMN_NAME"];
-                        fieldNames.Add(columnName);
-                    }
+                    string columnName = (string)row["COLUMN_NAME"];
+                    fieldNames.Add(columnName);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                return fieldNames;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return fieldNames;
         }
 
         private string BuildList(MySqlDataReader reader)

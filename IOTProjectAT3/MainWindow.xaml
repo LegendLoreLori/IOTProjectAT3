@@ -99,7 +99,7 @@
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="5"
-            Margin="8" />
+            Margin="8" Click="InsertRecordButton_Click" />
         <Button 
             x:Name="DeleteRecordButton"
             Content="Delete" 

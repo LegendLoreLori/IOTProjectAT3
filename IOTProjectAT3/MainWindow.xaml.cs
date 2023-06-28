@@ -84,5 +84,11 @@ namespace IOTProjectAT3
 
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text, $"gross_salary > {SalaryTextBox.Text}");
         }
+
+        private void InsertRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeWindow insertWindow = new EmployeeWindow();
+            insertWindow.ShowDialog();
+        }
     }
 }

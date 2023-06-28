@@ -159,14 +159,21 @@ namespace IOTProjectAT3
         {
             using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
             {
-                connection.Open();
-                // Retrieve the table schema
-                DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
                 List<string> fieldNames = new List<string>() { "*" };
-                foreach (DataRow row in schemaTable.Rows)
+                try
                 {
-                    string columnName = (string)row["COLUMN_NAME"];
-                    fieldNames.Add(columnName);
+                    connection.Open();
+                    // Retrieve the table schema
+                    DataTable schemaTable = connection.GetSchema("Columns", new[] { "", "", tableName, "" });
+                    foreach (DataRow row in schemaTable.Rows)
+                    {
+                        string columnName = (string)row["COLUMN_NAME"];
+                        fieldNames.Add(columnName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
                 return fieldNames;
             }

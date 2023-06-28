@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +27,33 @@ namespace IOTProjectAT3
 
         private void InsertButton_Click(object sender, RoutedEventArgs e)
         {
+            if (IdText.Text == "" || GivenNameText.Text == "" || FamilyNameText.Text == "" || DoBText.Text == "" || GenderText.Text == "" || SalaryText.Text == "" || SupervisorIDText.Text == "" || BranchIDText.Text == "") 
+            {
+                MessageBox.Show("Incorrect information.");
+                return;
+            }
 
+            using (MySqlConnection connection = new MySqlConnection(DBSystem.DbConnectionString))
+            {
+                string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
+                    $"('{IdText.Text}','{GivenNameText.Text}','{FamilyNameText.Text}','{DoBText.Text}','{GenderText.Text}','{SalaryText.Text}','{SupervisorIDText.Text}','{BranchIDText.Text}');";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Success");
+                    }
+                    catch (Exception ex) 
+                    { 
+                        MessageBox.Show(ex.Message); 
+                    }
+                }
+            }
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

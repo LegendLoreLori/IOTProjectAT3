@@ -37,18 +37,17 @@
         <Label Content="SUPERVISOR ID" Grid.Column="1" Grid.Row="7" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Label Content="BRANCH ID" Grid.Column="1" Grid.Row="8" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-
-        <TextBox x:Name="IdText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1"/>
-        <TextBox x:Name="GivenNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="8"/>
-        <TextBox x:Name="FamilyNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
-        <TextBox x:Name="DoBText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
-        <TextBox x:Name="GenderText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
-        <TextBox x:Name="SalaryText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="IdText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3" />
+        <TextBox x:Name="GivenNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
+        <TextBox x:Name="FamilyNameText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="3" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
+        <TextBox x:Name="DoBText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="4" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
+        <TextBox x:Name="GenderText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="5" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="1"/>
+        <TextBox x:Name="SalaryText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" />
         <TextBox x:Name="SupervisorIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="7" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
-        <TextBox x:Name="BranchIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="8" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="3"/>
+        <TextBox x:Name="BranchIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="8" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="1"/>
 
         <Button x:Name="InsertButton" Content="INSERT" Grid.Column="2" Margin="8" Grid.Row="9" Click="InsertButton_Click"/>
-        <Button x:Name="ClearButton" Content="CLEAR" Grid.Column="3"  Margin="8" Grid.Row="9" Click="ClearButton_Click" />
+        <Button x:Name="UpdateButton" Content="CLEAR" Grid.Column="3"  Margin="8" Grid.Row="9" Click="UpdateButton_Click" />
 
     </Grid>
 </Window>

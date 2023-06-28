@@ -126,5 +126,17 @@ namespace IOTProjectAT3
             dataBaseSystem.DeleteRecord(employeeID);
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
         }
+
+        private void EmployeeSalesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchTextBox.Text == "" || !int.TryParse(SearchTextBox.Text, out int result)) 
+            {
+                MessageBox.Show("Enter employee ID");
+                return;
+            }
+
+            IOTListBox.ItemsSource = dataBaseSystem.GetSales(SearchTextBox.Text);
+            SearchTextBox.Clear();
+        }
     }
 }

@@ -150,10 +150,28 @@ namespace IOTProjectAT3
             }
         }
 
-        //Perform Join query on table
-        public void JoinTable()
+        //return a list of total sales from working with table by employee id number
+        public List<string> GetSales(string idData)
         {
+            List<string> records = new();
 
+            using (MySqlConnection connection = new(DbConnectionString))
+            {
+                string query = $"SELECT employees.given_name, employees.family_name, working_with.total_sales, clients.client_name " +
+                $"FROM employees INNER JOIN working_with ON working_with.employee_id=employees.id " +
+                $"INNER JOIN clients ON clients.id=working_with.client_id " +
+                $"WHERE employees.id={idData}";
+                using MySqlCommand command = new (query, connection);
+                {
+                    connection.Open();
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        records.Add(BuildList(reader));
+                    }
+                }
+            }
+            return records;
         }
 
         //Delete currently selected record

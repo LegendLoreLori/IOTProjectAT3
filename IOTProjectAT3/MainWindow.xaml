@@ -80,12 +80,12 @@
             Grid.Row="2"
             Margin="8" Click="ShowTablesButton_Click" />
         <Button 
-            x:Name="JoinTableButton"
-            Content="Join" 
+            x:Name="EmployeeSalesButton"
+            Content="Sales" 
             FontSize="20"
             Grid.Column="1" 
             Grid.Row="3"
-            Margin="8" />
+            Margin="8" Click="EmployeeSalesButton_Click" />
         <Button 
             x:Name="EditRecordButton"
             Content="Edit" 

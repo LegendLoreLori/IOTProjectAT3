@@ -87,7 +87,7 @@ namespace IOTProjectAT3
 
         private void InsertRecordButton_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeWindow insertWindow = new EmployeeWindow(null);
+            EmployeeWindow insertWindow = new EmployeeWindow(dataBaseSystem, null);
             insertWindow.ShowDialog();
         }
 
@@ -98,7 +98,7 @@ namespace IOTProjectAT3
                 return;
             }
             List<string> employeeData = IOTListBox.SelectedItem.ToString().Split(new string[] { "   " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            EmployeeWindow editWindow = new EmployeeWindow(employeeData);
+            EmployeeWindow editWindow = new EmployeeWindow(dataBaseSystem ,employeeData);
             editWindow.ShowDialog();
         }
     }

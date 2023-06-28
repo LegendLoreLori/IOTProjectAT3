@@ -20,9 +20,12 @@ namespace IOTProjectAT3
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        public EmployeeWindow(List<string>? data)
+        DBSystem dataBaseSystem;
+        public EmployeeWindow(DBSystem dataBaseSystem, List<string>? data)
         {
             InitializeComponent();
+            this.dataBaseSystem = dataBaseSystem;
+
             if (data != null)
             {
                 IdText.Text = data[0];
@@ -44,24 +47,8 @@ namespace IOTProjectAT3
                 return;
             }
 
-            using (MySqlConnection connection = new MySqlConnection(DBSystem.DbConnectionString))
-            {
-                string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
-                    $"('{IdText.Text}','{GivenNameText.Text}','{FamilyNameText.Text}','{DoBText.Text}','{GenderText.Text}','{SalaryText.Text}','{SupervisorIDText.Text}','{BranchIDText.Text}');";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Success");
-                    }
-                    catch (Exception ex) 
-                    { 
-                        MessageBox.Show(ex.Message); 
-                    }
-                }
-            }
+            List<string> inputData = new List<string> { IdText.Text, GivenNameText.Text, FamilyNameText.Text, DoBText.Text, GenderText.Text, SalaryText.Text, SupervisorIDText.Text, BranchIDText.Text };
+            dataBaseSystem.InsertRecord(inputData);
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)

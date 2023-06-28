@@ -116,9 +116,26 @@ namespace IOTProjectAT3
         }
 
         //Insert new record into table
-        public void InsertRecord()
+        public void InsertRecord(List<string> inputData)
         {
-
+            using (MySqlConnection connection = new MySqlConnection(DBSystem.DbConnectionString))
+            {
+                string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
+                    $"('{inputData[0]}','{inputData[1]}','{inputData[2]}','{inputData[3]}','{inputData[4]}','{inputData[5]}','{inputData[6]}','{inputData[7]}');";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Success");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
 
         //Perform Join query on table

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IOTProjectAT3"
         mc:Ignorable="d"
         Title="InsertWindow" Height="450" Width="350">
-    <Grid>
+    <Grid Background="#FFEFD4CC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8"/>
             <ColumnDefinition Width="1*"/>
@@ -47,7 +47,7 @@
         <TextBox x:Name="BranchIDText" TextWrapping="Wrap" Grid.Column="2" Margin="8" Grid.Row="8" Grid.ColumnSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLines="1" MaxLength="1"/>
 
         <Button x:Name="InsertButton" Content="INSERT" Grid.Column="2" Grid.ColumnSpan="2" Margin="8" Grid.Row="9" Click="InsertButton_Click"/>
-        <Button x:Name="UpdateButton" Content="UDATE" Grid.Column="2" Grid.ColumnSpan="2" Margin="8" Grid.Row="9" Click="UpdateButton_Click" />
+        <Button x:Name="UpdateButton" Content="UDATE" Grid.Column="2" Grid.ColumnSpan="2" Margin="8" Grid.Row="9" Click="UpdateButton_Click" Background="#FFEFB99A" />
 
     </Grid>
 </Window>

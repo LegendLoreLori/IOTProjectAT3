@@ -127,6 +127,7 @@ namespace IOTProjectAT3
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
         }
 
+        //queries the database to return records of the name of an employee and their total sales to each client and displays the results
         private void EmployeeSalesButton_Click(object sender, RoutedEventArgs e)
         {
             if (SearchTextBox.Text == "" || !int.TryParse(SearchTextBox.Text, out int result)) 

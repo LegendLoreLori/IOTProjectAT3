@@ -21,7 +21,7 @@ namespace IOTProjectAT3
     /// </summary>
     public partial class MainWindow : Window
     {
-        DBSystem dataBaseSystem = new DBSystem();
+        DBSystem dataBaseSystem = new();
 
         public MainWindow()
         {
@@ -34,6 +34,7 @@ namespace IOTProjectAT3
             TableNameBlock.Text = "Table Name:";
             IOTListBox.ItemsSource = dataBaseSystem.DisplayTables();
         }
+
 
         //populate list box with all records inside a table
         private void IOTListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -63,7 +64,7 @@ namespace IOTProjectAT3
             if (BranchesCombo.SelectedItem == null || BranchesCombo.SelectedItem == "") BranchesCombo.SelectedItem = "*";
             if (TableNameBlock.Text == null || TableNameBlock.Text != "employees") return;
             
-            List<string> records = new List<string>();
+            List<string> records = new();
             if (BranchesCombo.SelectedItem == "*") records = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
             else records = dataBaseSystem.GetRecords("*", TableNameBlock.Text, $"branch_id = {BranchesCombo.SelectedItem}");
             IOTListBox.ItemsSource = records;
@@ -85,12 +86,16 @@ namespace IOTProjectAT3
             IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text, $"gross_salary > {SalaryTextBox.Text}");
         }
 
+
+        //calls dbsystem to perform an insert query with data provided by employeewindow
         private void InsertRecordButton_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeWindow insertWindow = new EmployeeWindow(dataBaseSystem, null);
+            EmployeeWindow insertWindow = new(dataBaseSystem, null);
             insertWindow.ShowDialog();
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
         }
 
+        //calls dbsystem to perform an update query with data provided by employeewindow
         private void EditRecordButton_Click(object sender, RoutedEventArgs e)
         {
             if (TableNameBlock.Text != "employees" || IOTListBox.SelectedItem == null || (string)IOTListBox.SelectedItem == "") {
@@ -98,8 +103,9 @@ namespace IOTProjectAT3
                 return;
             }
             List<string> employeeData = IOTListBox.SelectedItem.ToString().Split(new string[] { "   " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            EmployeeWindow editWindow = new EmployeeWindow(dataBaseSystem ,employeeData);
+            EmployeeWindow editWindow = new(dataBaseSystem, employeeData);
             editWindow.ShowDialog();
+            IOTListBox.ItemsSource = dataBaseSystem.GetRecords("*", TableNameBlock.Text);
         }
     }
 }

@@ -7,8 +7,10 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Utilities.Collections;
 
 namespace IOTProjectAT3
 {
@@ -32,14 +34,14 @@ namespace IOTProjectAT3
         //Return a list of tables to be displayed and interacted with in the list box 
         public List<string> DisplayTables()
         {
-            List<string> tables = new List<string>();
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            List<string> tables = new();
+            using (MySqlConnection connection = new(DbConnectionString))
             {
                 string query = "SHOW TABLES";
                 try
                 {
                     connection.Open();
-                    using MySqlCommand command = new MySqlCommand(query, connection);
+                    using MySqlCommand command = new(query, connection);
                     using MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -59,11 +61,11 @@ namespace IOTProjectAT3
         {
             if (!DisplayTables().Contains(tableName)) return new List<string>() {"Invalid Table Name"};
 
-            List<string> records = new List<string>();
-            using(MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            List<string> records = new();
+            using(MySqlConnection connection = new(DbConnectionString))
             {
                 string query = $"SELECT {fieldName} FROM `{tableName}` WHERE {condition}";
-                using MySqlCommand command = new MySqlCommand(query, connection);
+                using MySqlCommand command = new(query, connection);
                 try
                 {
                     connection.Open();
@@ -84,12 +86,12 @@ namespace IOTProjectAT3
         //Perform like query on table 
         public List<string> SearchTable(string tableName, string fieldName, string searchText)
         {
-            List<string> records = new List<string>();
-            using (MySqlConnection connection = new MySqlConnection(DbConnectionString))
+            List<string> records = new();
+            using (MySqlConnection connection = new(DbConnectionString))
             {
                 //this is a bad implementation, assumes the name column will always be in index 1
                 string query = $"SELECT {fieldName} FROM `{tableName}` WHERE `{GetSchema(tableName)[2]}` LIKE '%{searchText}%';";
-                using MySqlCommand command = new MySqlCommand(query, connection);
+                using MySqlCommand command = new(query, connection);
                 try
                 {
                     connection.Open();
@@ -108,18 +110,34 @@ namespace IOTProjectAT3
         }
 
         //Perform update query on record
-        public void EditRecord()
+        public void EditRecord(List<string> inputData)
         {
-
+            using MySqlConnection connection = new(DbConnectionString);
+            string query = $"UPDATE `employees` SET " +
+                $"`id`= '{inputData[0]}',`given_name`= '{inputData[1]}'," +
+                $"`family_name`= '{inputData[2]}',`date_of_birth`= '{inputData[3]}'," +
+                $"`gender_identity`= '{inputData[4]}',`gross_salary`= '{inputData[5]}'," +
+                $"`supervisor_id`= '{inputData[6]}',`branch_id`= '{inputData[7]}' WHERE `id`= {inputData[0]};";
+            using MySqlCommand command = new(query, connection);
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                MessageBox.Show("Employee Updated");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //Insert new record into table
         public void InsertRecord(List<string> inputData)
         {
-            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
+            using MySqlConnection connection = new(DbConnectionString);
             string query = $"INSERT INTO `employees`(`id`, `given_name`, `family_name`, `date_of_birth`, `gender_identity`, `gross_salary`, `supervisor_id`, `branch_id`) VALUES " +
                 $"('{inputData[0]}','{inputData[1]}','{inputData[2]}','{inputData[3]}','{inputData[4]}','{inputData[5]}','{inputData[6]}','{inputData[7]}');";
-            using MySqlCommand command = new MySqlCommand(query, connection);
+            using MySqlCommand command = new(query, connection);
             try
             {
                 connection.Open();
@@ -147,11 +165,11 @@ namespace IOTProjectAT3
         //Return the unique branches in employees table
         public List<string> GetBranches()
         {
-            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
-            List<string> branches = new List<string>() { "*" };
+            using MySqlConnection connection = new(DbConnectionString);
+            List<string> branches = new() { "*" };
 
             string query = $"SELECT branch_id FROM `employees` GROUP BY branch_id;";
-            using (MySqlCommand command = new MySqlCommand(query, connection))
+            using (MySqlCommand command = new(query, connection))
             {
                 connection.Open();
                 using MySqlDataReader reader = command.ExecuteReader();
@@ -166,8 +184,8 @@ namespace IOTProjectAT3
         //Return a list of the field names inside a table
         public List<string> GetSchema(string tableName)
         {
-            using MySqlConnection connection = new MySqlConnection(DbConnectionString);
-            List<string> fieldNames = new List<string>() { "*" };
+            using MySqlConnection connection = new(DbConnectionString);
+            List<string> fieldNames = new() { "*" };
             try
             {
                 connection.Open();
@@ -188,7 +206,7 @@ namespace IOTProjectAT3
 
         private string BuildList(MySqlDataReader reader)
         {
-            StringBuilder recordBuilder = new StringBuilder();
+            StringBuilder recordBuilder = new();
             //Dynamically builds a string to the correct size
             for (int i = 0; i < reader.FieldCount; i++)
             {

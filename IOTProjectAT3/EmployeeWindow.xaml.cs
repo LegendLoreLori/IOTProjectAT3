@@ -25,9 +25,13 @@ namespace IOTProjectAT3
         {
             InitializeComponent();
             this.dataBaseSystem = dataBaseSystem;
+            InsertButton.Visibility = Visibility.Visible;
+            UpdateButton.Visibility = Visibility.Hidden;
 
             if (data != null)
             {
+                InsertButton.Visibility = Visibility.Hidden;
+                UpdateButton.Visibility = Visibility.Visible;
                 IdText.Text = data[0];
                 GivenNameText.Text = data[1];
                 FamilyNameText.Text = data[2];
@@ -39,6 +43,8 @@ namespace IOTProjectAT3
             }
         }
 
+
+        //sends input data to dbsystem to perform select query
         private void InsertButton_Click(object sender, RoutedEventArgs e)
         {
             if (IdText.Text == "" || GivenNameText.Text == "" || FamilyNameText.Text == "" || DoBText.Text == "" || GenderText.Text == "" || SalaryText.Text == "" || SupervisorIDText.Text == "" || BranchIDText.Text == "") 
@@ -47,13 +53,21 @@ namespace IOTProjectAT3
                 return;
             }
 
-            List<string> inputData = new List<string> { IdText.Text, GivenNameText.Text, FamilyNameText.Text, DoBText.Text, GenderText.Text, SalaryText.Text, SupervisorIDText.Text, BranchIDText.Text };
+            List<string> inputData = new() { IdText.Text, GivenNameText.Text, FamilyNameText.Text, DoBText.Text, GenderText.Text, SalaryText.Text, SupervisorIDText.Text, BranchIDText.Text };
             dataBaseSystem.InsertRecord(inputData);
         }
 
+        //sends input data to dbsystem to perform update query
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (IdText.Text == "" || GivenNameText.Text == "" || FamilyNameText.Text == "" || DoBText.Text == "" || GenderText.Text == "" || SalaryText.Text == "" || SupervisorIDText.Text == "" || BranchIDText.Text == "")
+            {
+                MessageBox.Show("Incorrect information.");
+                return;
+            }
 
+            List<string> inputData = new() { IdText.Text, GivenNameText.Text, FamilyNameText.Text, DoBText.Text, GenderText.Text, SalaryText.Text, SupervisorIDText.Text, BranchIDText.Text };
+            dataBaseSystem.EditRecord(inputData);
         }
     }
 }
